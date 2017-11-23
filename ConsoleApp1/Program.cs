@@ -47,38 +47,38 @@ namespace ConsoleApp1
 
             {
                 var result = directories[i].Name;
-            
-               
-                    DirectoryInfo dir = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\MOV\descomprimir\" + result);
-                    int count = dir.GetFiles().Length;
 
-                    for (int f = 0; f <= count;  f++)
+
+                  DirectoryInfo dir = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\MOV\descomprimir\" + result);
+                //  int count = dir.GetFiles().Length;
+
+                //     for (int f = 0; f <= count;  f++)
+                //      {
+                foreach (var fi2 in dir.GetFiles("*.pdf"))
+                {
+                    // Console.WriteLine("Esta es la carpeta: " + result);
+                    // Console.WriteLine("Lo que hay en la carpeta " + DicStart2 + " Es: " + fi2);
+
+                    if (fi2.Extension == ".pdf")
                     {
-                        foreach (var fi2 in DicStart2.GetFiles("*", SearchOption.AllDirectories))
-                        {
-                            // Console.WriteLine("Esta es la carpeta: " + result);
-                            // Console.WriteLine("Lo que hay en la carpeta " + DicStart2 + " Es: " + fi2);
+                        string sourceFile = @"C:\Users\Sistemas\Desktop\MOV\descomprimir\" + result + "\\" + fi2;
+                        string destinationFile = @"C:\Users\Sistemas\Desktop\MOV\pdf\" + fi2;
 
-                            if (fi2.Extension == ".pdf")
-                            {
-                                string sourceFile = @"C:\Users\Sistemas\Desktop\MOV\descomprimir\" + result + "\\" + fi2;
-                                string destinationFile = @"C:\Users\Sistemas\Desktop\MOV\pdf\" + fi2;
-
-                                // To move a file or folder to a new location:
-                                System.IO.File.Move(sourceFile, destinationFile);
-                                Console.WriteLine("Se movio el " + fi2 + " a la carpeta Descomprimir");
-                                Console.WriteLine("Se movio a Slam");
-                            }
-                            else
-                            {
-                                Console.WriteLine("No se movio el" + fi2);
-                                Console.WriteLine("NO se movio");
-                            }
-
-
-                        }
-                        
+                        // To move a file or folder to a new location:
+                        System.IO.File.Move(sourceFile, destinationFile);
+                        Console.WriteLine("Se movio el " + fi2 + " a la carpeta Descomprimir");
+                        Console.WriteLine("Se movio a Slam");
                     }
+                    else
+                    {
+                        Console.WriteLine("No se movio el" + fi2);
+                        Console.WriteLine("NO se movio");
+                    }
+
+
+                }
+                        
+                    //}
 
             }
             Console.ReadKey();
