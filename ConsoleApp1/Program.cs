@@ -18,52 +18,69 @@ namespace ConsoleApp1
         {
             
             //Directorios
-            DirectoryInfo DicStart = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\mail\");
-            DirectoryInfo DicStart2 = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\mail\des");
+            DirectoryInfo DicStart = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\MOV\winrar");
+            DirectoryInfo DicStart2 = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\MOV\descomprimir");
 
-            DirectoryInfo directory = new DirectoryInfo(@"C: \Users\Sistemas\Desktop\mail\des");
+            DirectoryInfo directory = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\MOV\descomprimir");
+            
+
+            foreach (var fi in DicStart.GetFiles("*.zip"))
+            {
+                Console.WriteLine(fi.Name);
+                string zipPath = @"C:\Users\Sistemas\Desktop\MOV\winrar\" + fi;
+                string extractPath = @"C:\Users\Sistemas\Desktop\MOV\descomprimir\";
+
+
+                //Crear Zip
+                // ZipFile.CreateFromDirectory(startPath, zipPath);
+                //Decomprimir zip
+
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+
+                Console.WriteLine("Se descomprimio" + fi);
+            }
+
+
             DirectoryInfo[] directories = directory.GetDirectories();
 
-
-            for (int i = 0; i < directories.Length; i++)
+            for (int i = 0; i<directories.Length; i++)
 
             {
                 var result = directories[i].Name;
             
-                foreach (var fi2 in DicStart2.GetFiles("*", SearchOption.AllDirectories))
-                {
-                    DirectoryInfo dir = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\mail\des\" + result);
+               
+                    DirectoryInfo dir = new DirectoryInfo(@"C:\Users\Sistemas\Desktop\MOV\descomprimir\" + result);
                     int count = dir.GetFiles().Length;
 
                     for (int f = 0; f <= count;  f++)
                     {
-                        // Console.WriteLine("Esta es la carpeta: " + result);
-                        // Console.WriteLine("Lo que hay en la carpeta " + DicStart2 + " Es: " + fi2);
-                        if (fi2.Extension == ".pdf")
+                        foreach (var fi2 in DicStart2.GetFiles("*", SearchOption.AllDirectories))
                         {
-                            string sourceFile = @"C:\Users\Sistemas\Desktop\mail\des\" + result + "\\" + fi2;
-                            string destinationFile = @"C:\Users\Sistemas\Desktop\mail\2000\" + fi2;
+                            // Console.WriteLine("Esta es la carpeta: " + result);
+                            // Console.WriteLine("Lo que hay en la carpeta " + DicStart2 + " Es: " + fi2);
 
-                            // To move a file or folder to a new location:
-                            System.IO.File.Move(sourceFile, destinationFile);
-                            Console.WriteLine("Se movio el "++""+);
-                            Console.WriteLine("Se movio a Slam");
+                            if (fi2.Extension == ".pdf")
+                            {
+                                string sourceFile = @"C:\Users\Sistemas\Desktop\MOV\descomprimir\" + result + "\\" + fi2;
+                                string destinationFile = @"C:\Users\Sistemas\Desktop\MOV\pdf\" + fi2;
+
+                                // To move a file or folder to a new location:
+                                System.IO.File.Move(sourceFile, destinationFile);
+                                Console.WriteLine("Se movio el " + fi2 + " a la carpeta Descomprimir");
+                                Console.WriteLine("Se movio a Slam");
+                            }
+                            else
+                            {
+                                Console.WriteLine("No se movio el" + fi2);
+                                Console.WriteLine("NO se movio");
+                            }
+
+
                         }
-                        else
-                        {
-                            Console.WriteLine("");
-                            Console.WriteLine("NO se movio");
-                        }
+                        
                     }
 
-                    i++;
-
-                }
-
             }
-
-
-
             Console.ReadKey();
         }
     }
